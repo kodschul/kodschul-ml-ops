@@ -1,5 +1,7 @@
 # Lab 1.1 – Übung: Was ist Machine Learning?
 
+**Heute im Kurs:** kurzer mündlicher Abgleich im Plenum (10 Min.), keine schriftliche Einzelübung – die Teilnehmerin kennt die Grundbegriffe bereits aus eigener Praxis. Die folgenden Aufgaben dienen als Gesprächsleitfaden und optional als Selbststudium-Referenz.
+
 **Ändert die Gewicht-Projektbasis?** Nein – Vorbereitung, es wird noch kein Modell trainiert.
 
 ## Ausgangslage

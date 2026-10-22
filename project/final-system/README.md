@@ -12,12 +12,14 @@ final-system/
 ├── Makefile
 ├── src/
 │   ├── train.py      # Training, speichert models/weight_model.joblib
+│   ├── track.py       # MLflow Tracking + Model Registry (Lab 2.3)
 │   ├── api.py         # FastAPI-Serving, laedt models/weight_model.joblib
 │   └── monitor.py     # Drift-Check, erzeugt reports/drift_report.html
 ├── scripts/
 │   └── version_data.sh   # DVC-Versionierung von ../data/people_stats.csv
 ├── models/             # entsteht durch `make train` (gitignored)
-└── reports/            # entsteht durch `make monitor` (gitignored)
+├── mlflow.db            # entsteht durch `make track` (gitignored)
+└── reports/             # entsteht durch `make monitor` (gitignored)
 ```
 
 Daten liegen bewusst nicht doppelt hier, sondern werden aus `../data/` gelesen (`people_stats.csv`, `people_weight_stats_10x.csv`) – ein System, eine Datenquelle.
@@ -29,6 +31,7 @@ cd project/final-system
 pip install -r ../requirements.txt     # oder: make setup
 
 make train      # trainiert und speichert models/weight_model.joblib
+make track      # protokolliert beide Modellvarianten in MLflow, registriert die bessere als "production"
 make serve      # startet die API unter http://127.0.0.1:8000 (Strg+C zum Beenden)
 ```
 
@@ -44,14 +47,16 @@ Nach dem Beenden der API:
 ```bash
 make monitor        # vergleicht Datenstände, erzeugt reports/drift_report.html
 make version-data   # versioniert data/people_stats.csv mit DVC (im project/-Ordner)
+make mlflow-ui      # öffnet die MLflow-Oberfläche unter http://127.0.0.1:5001 (Strg+C zum Beenden)
 ```
 
 ## Reihenfolge für ein frisches System
 
 1. `make train` – ohne trainiertes Modell kann die API nicht starten.
-2. `make version-data` – hält den gerade verwendeten Datenstand in Git/DVC fest.
-3. `make serve` – Service lokal verfügbar machen.
-4. `make monitor` – prüfen, ob eine neue Datencharge vom trainierten Stand abweicht; bei deutlicher Abweichung zurück zu Schritt 1 mit aktualisierten Daten.
+2. `make track` – hält fest, mit welchen Parametern/Metriken das Modell entstand, und markiert es als `production`.
+3. `make version-data` – hält den gerade verwendeten Datenstand in Git/DVC fest.
+4. `make serve` – Service lokal verfügbar machen.
+5. `make monitor` – prüfen, ob eine neue Datencharge vom trainierten Stand abweicht; bei deutlicher Abweichung zurück zu Schritt 1 mit aktualisierten Daten.
 
 ## Grenzen dieses Stands
 

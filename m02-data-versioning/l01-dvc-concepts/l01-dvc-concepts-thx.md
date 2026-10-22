@@ -47,4 +47,6 @@ Ein `git checkout <commit>` wechselt den Code-Stand; `dvc checkout` stellt danac
 - DVC versioniert Daten über einen kleinen Verweis in Git, die echten Dateien liegen separat.
 - Jeder Git-Commit kann so eindeutig einem Datenstand zugeordnet werden.
 
+**Alternative: Pachyderm.** Für größere Teams/Pipelines existiert auch Pachyderm – koppelt Datenversionen direkt an automatisierte Verarbeitungsschritte (Pipelines), nicht nur an einzelne Dateien. Für den heutigen Kurstag reicht DVC als einfacherer Einstieg; das Grundprinzip (Datenstand nachvollziehbar an einen Verarbeitungsschritt koppeln) ist dasselbe.
+
 Lab 2.2 richtet DVC für den Projekt-Datensatz ein und versioniert zwei unterschiedliche Datenstände.

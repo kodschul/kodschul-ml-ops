@@ -1,6 +1,7 @@
 # Lab 1.3 – Übung: Überleben auf der Titanic vorhersagen mit logistischer Regression
 
-**Dauer:** ca. 55 Minuten
+**Dauer:** ca. 12 Minuten
+**Heute im Kurs:** Trainer-Demo statt Einzelübung – die Teilnehmerin kennt logistische Regression bereits; Code und Ergebnis werden gemeinsam durchgegangen. Die folgenden Aufgaben dienen als Grundlage für die Demo und optional als Selbststudium-Referenz.
 **Ändert die Gewicht-Projektbasis?** Nein – eigenständiges Klassifikations-Beispiel, nicht Teil der Gewicht-Pipeline.
 
 ## Ausgangslage

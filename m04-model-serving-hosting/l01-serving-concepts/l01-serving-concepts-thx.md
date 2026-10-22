@@ -38,10 +38,13 @@ geladen = joblib.load("weight_model.joblib")
 | Einfache REST-API (FastAPI) | Modell einmal laden, über HTTP-Endpunkt erreichbar machen | kleine Projekte, ein bis wenige Anwendungen |
 | MLflow Model Serving | MLflow verwaltet Modellversionen und stellt sie über einen Server bereit | mehrere Modellversionen, Teamnutzung |
 | TFServe / KServe | spezialisierte Serving-Server für TensorFlow-Modelle bzw. Kubernetes-Umgebungen | hohe Last, viele gleichzeitige Modelle, produktive Skalierung |
+| Open-Source-Alternativen (BentoML, Seldon Core) | eigenständige Serving-Frameworks, modellunabhängig, mit eigenem Paketierungsformat | Teams, die nicht an ein bestimmtes ML-Framework gebunden sein wollen |
+
+„MLflow Model Serving" in dieser Tabelle ist nicht dasselbe wie das MLflow Tracking/die Model Registry aus Lab 2.3: Tracking protokolliert und verwaltet Modellversionen, Model Serving würde zusätzlich eine registrierte Version direkt als API bereitstellen – das bleibt heute Theorie, die Serving-Übung in Lab 4.2 läuft über FastAPI.
 
 ## Event-basierte Pipelines und Plattformen
 
-Für Echtzeitszenarien mit kontinuierlichem Datenstrom (statt einzelner Anfragen) existieren event-basierte ML-Pipelines, die Vorhersagen direkt auf eingehende Ereignisse anwenden. Plattformen wie Kubeflow, MLflow oder Metaflow bündeln Versionierung, Serving und Monitoring in einer gemeinsamen Umgebung, statt einzelne Tools manuell zu kombinieren.
+Die bisherigen Optionen beantworten Anfragen einzeln (Request-Response: eine Anfrage kommt rein, eine Vorhersage geht raus). Für Echtzeitszenarien mit kontinuierlichem Datenstrom gibt es stattdessen event-basierte ML-Pipelines: ein Ereignis (z. B. eine neue Sensor-Messung oder eine neue Transaktion) kommt über eine Warteschlange (z. B. Kafka) an, ein Dienst wendet das Modell direkt darauf an und gibt die Vorhersage an das nächste System weiter – ohne dass jemand aktiv eine Anfrage stellt. Plattformen wie Kubeflow, MLflow oder Metaflow bündeln Versionierung, Serving und Monitoring in einer gemeinsamen Umgebung, statt einzelne Tools manuell zu kombinieren (Auswahlkriterien dazu in Lab 2.3).
 
 ## Fazit
 

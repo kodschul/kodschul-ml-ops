@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.joblib
+*.pkl
+drift_report.html
+checkpoints/m03-feature-store/feature_repo/data/

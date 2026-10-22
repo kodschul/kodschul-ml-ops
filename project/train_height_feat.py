@@ -6,6 +6,8 @@ from sklearn.metrics import r2_score, mean_absolute_error
 
 import matplotlib.pyplot as plt
 
+import joblib 
+
 
 df = pd.read_csv("./data/people_stats.csv")
 
@@ -26,6 +28,9 @@ y_pred = model.predict(X_test)
 print("MAE:", mean_absolute_error(y_test, y_pred), " kg")
 print("R^2: ", r2_score(y_test, y_pred))
 
-plt.scatter(X_test, y_test, color="green")
-plt.scatter(X_test, y_pred, color="blue")
-plt.show()
+
+print("DUMP!")
+joblib.dump(model, "./data/weight_pred_height_feat.model")
+# plt.scatter(X_test, y_test, color="green")
+# plt.scatter(X_test, y_pred, color="blue")
+# plt.show()

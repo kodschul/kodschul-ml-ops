@@ -18,7 +18,14 @@
 | `softmax` | Aktivierungsfunktion, wandelt mehrere Ausgabewerte in Wahrscheinlichkeiten um, die zusammen 1 ergeben | 1.4 |
 | DVC (Data Version Control) | versioniert Datendateien gekoppelt an Git-Commits | 2.1, 2.2 |
 | `.dvc`-Datei | kleine Verweisdatei in Git, zeigt auf die echte Datenversion im DVC-Cache | 2.2 |
+| MLflow Run | ein protokollierter Trainingslauf mit Parametern, Metriken und Modell-Artefakt | 2.3 |
+| MLflow Experiment | Gruppe zusammengehöriger Runs (hier: alle Gewicht-Modell-Varianten) | 2.3 |
+| Model Registry (MLflow) | verwaltet durchnummerierte Versionen eines benannten Modells | 2.3 |
+| Alias (MLflow) | Markierung einer Modellversion (z. B. `production`), ersetzt die veralteten „Stages" | 2.3 |
+| Kubeflow / Metaflow | größere ML-Plattformen (Pipeline-Orchestrierung, meist Kubernetes); Vergleichsoption zu MLflow | 2.3 |
+| Pachyderm | Alternative zu DVC, koppelt Datenversionen an automatisierte Pipeline-Schritte | 2.1 |
 | Data Drift | Verschiebung der Eingabedatenverteilung gegenüber den Trainingsdaten | 5.1 |
+| Great Expectations / Deequ | Tools zur regelbasierten Datenqualitätsprüfung (Erwartungen an Daten explizit definieren) | 5.1 |
 | Feature Store | zentrale Quelle für Features, konsistent für Training und Serving | 3.1 |
 | Entity (Feast) | Schlüssel, zu dem Features gehören (z. B. eine Person) | 3.1 |
 | Feature View (Feast) | Gruppe zusammengehöriger Features für eine Entity | 3.1 |

@@ -34,7 +34,11 @@ Ein Modell lernt eine feste Beziehung aus den Trainingsdaten. Verändert sich di
 | --- | --- |
 | Evidently | Vergleichsreports zwischen Referenz- und aktuellen Daten (Drift, Datenqualität) |
 | NannyML | Schätzung der Modell-Performance ohne aktuelle echte Labels |
+| Great Expectations | Erwartungen an Daten explizit als Regeln definieren und automatisiert prüfen (z. B. „Age muss zwischen 0 und 120 liegen") |
+| Deequ | ähnlich wie Great Expectations, für große Datenmengen auf Apache Spark |
 | Grafana | Dashboards für Kennzahlen über die Zeit, meist in Kombination mit einer Metrik-Datenbank |
+
+Great Expectations/Deequ prüfen Regeln (Datenqualität im engeren Sinn), Evidently/NannyML vergleichen Verteilungen (Drift). Für den heutigen Kurstag reicht Evidently als ein konkretes, direkt lauffähiges Beispiel; die anderen Tools lösen verwandte, aber nicht identische Probleme.
 
 ## Mini-Demo: Referenz- vs. aktuelle Daten vergleichen
 

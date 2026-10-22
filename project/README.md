@@ -21,9 +21,10 @@ Durchgängiges Projekt des Kurstages: ein Regressionsmodell sagt das Körpergewi
 | Modul | Schritt | Ergebnis |
 | --- | --- | --- |
 | M1 | Modell auf `people_stats.csv` trainieren (erst `Height`, dann `Height`+`Age`) | trainiertes `LinearRegression`-Modell |
-| M2 | Datensatz mit DVC versionieren, Wechsel auf `people_weight_stats_10x.csv` nachvollziehbar machen | zwei versionierte Datenstände |
+| M2 | Datensatz mit DVC versionieren, Wechsel auf `people_weight_stats_10x.csv` nachvollziehbar machen; beide Modellvarianten mit MLflow protokollieren und das bessere als `production` registrieren | zwei versionierte Datenstände, zwei nachvollziehbare MLflow-Runs, eine registrierte Modellversion |
 | M3 | Features `height`/`age` als Feature-Store-Konzept kennenlernen (Demo, keine Codeänderung am Projekt) | - |
 | M4 | Modell als lokale API bereitstellen (Eingabe: Größe + Alter, Ausgabe: Gewicht) | lauffähiger Endpunkt |
+| M6 | Best Practices über die gesamte Pipeline reflektieren (Reproduzierbarkeit, Validierung, Rollback) | - |
 | M5 | Datenqualität/Drift zwischen beiden Datenständen prüfen | Evidently-Report |
 
 ## Ordnerstruktur
@@ -43,11 +44,13 @@ project/
 │   ├── Makefile
 │   ├── src/
 │   │   ├── train.py
+│   │   ├── track.py
 │   │   ├── api.py
 │   │   └── monitor.py
 │   ├── scripts/
 │   │   └── version_data.sh
 │   ├── models/               # entsteht durch `make train`
+│   ├── mlflow.db              # entsteht durch `make track`
 │   └── reports/              # entsteht durch `make monitor`
 └── checkpoints/              # Referenzcode pro Lab (inkl. Nicht-Projekt-Labs)
     ├── m01-ml-grundlagen/
@@ -55,7 +58,8 @@ project/
     │   ├── train_logreg_titanic.py  # Lab 1.3, finale Version
     │   └── train_tensorflow.py      # Lab 1.4, finale Version
     ├── m02-data-versioning/
-    │   └── dvc_commands.sh          # Lab 2.2, vollständiger Befehlsablauf
+    │   ├── dvc_commands.sh          # Lab 2.2, vollständiger Befehlsablauf
+    │   └── mlflow_tracking.py       # Lab 2.3, Tracking + Model Registry
     ├── m03-feature-store/
     │   ├── README.md                 # Lab 3.1, Ablaufschritte
     │   ├── prepare_data.py           # erzeugt die Parquet-Quelle
@@ -63,8 +67,10 @@ project/
     │   └── feature_repo/             # feature_store.yaml + features.py
     ├── m04-model-serving-hosting/
     │   └── serve.py                 # Lab 4.2, finale Version inkl. Plausibilitätsprüfung
-    └── m05-monitoring/
-        └── check_drift.py           # Lab 5.1, finale Version
+    ├── m05-monitoring/
+    │   └── check_drift.py           # Lab 5.1, finale Version
+    └── m06-mlops-best-practices/
+        └── compare_before_promote.py # Lab 6.1, Metrikvergleich vor dem Promoten (Anti-Pattern-Check)
 ```
 
 - `requirements.txt` listet alle Pakete, die über den Tag gebraucht werden (`pip install -r project/requirements.txt`), siehe auch [`00-setup-and-installation.md`](../00-setup-and-installation.md).
@@ -92,6 +98,11 @@ bash checkpoints/m02-data-versioning/dvc_commands.sh         # Schritt für Schr
 ```
 
 ```bash
+python checkpoints/m02-data-versioning/mlflow_tracking.py    # erzeugt mlflow.db, registriert "weight-predictor"
+mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5001   # Strg+C zum Beenden
+```
+
+```bash
 python checkpoints/m03-feature-store/prepare_data.py
 cd checkpoints/m03-feature-store/feature_repo
 feast apply
@@ -116,4 +127,8 @@ Nach Beenden der API (Strg+C), zurück im `project`-Ordner:
 
 ```bash
 python checkpoints/m05-monitoring/check_drift.py             # erzeugt drift_report.html
+```
+
+```bash
+python checkpoints/m06-mlops-best-practices/compare_before_promote.py   # vergleicht MLflow-Runs, promotet nur nach Metrikvergleich
 ```

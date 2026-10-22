@@ -1,7 +1,10 @@
 # FAQ
 
-**Warum wird in Lab 1.2 zuerst nur `Height` verwendet, obwohl `Age` auch verfügbar ist?**
-Um den Effekt eines zusätzlichen Features sichtbar zu machen: Erst wird mit einem Feature trainiert, dann mit zwei – der MAE-Unterschied zeigt direkt, ob das zweite Feature hilft.
+**Warum trainiert Lab 1.2 heute direkt mit `Height` und `Age` zusammen, statt zuerst nur mit `Height`?**
+In der ursprünglichen Fassung wurde zuerst nur `Height` trainiert, um den Effekt eines zusätzlichen Features sichtbar zu machen (MAE sinkt von 7.36 kg auf 6.66 kg). Da die Teilnehmerin diesen Effekt bereits aus eigener Erfahrung kennt, entfällt der Zwischenschritt – die Zahlen bleiben als Vergleich im Handout erhalten.
+
+**Warum ist Modul 1 heute so kurz (65 statt ursprünglich 165 Minuten)?**
+Die Teilnehmerin hat bereits ein ML-Modell gebaut (Master-Thesis) und braucht keine Einführung in ML-Grundlagen – nur einen kurzen Begriffsabgleich und das eine Projektmodell, mit dem der restliche Tag arbeitet. Die gewonnene Zeit fließt in echte Hands-on-Tiefe für Versionierung, Serving und Best Practices.
 
 **Warum ist die Accuracy beim Titanic-Beispiel nur rund 78 % und nicht höher?**
 Das Lab nutzt bewusst nur 3 Features (`Pclass`, `Age`, `Sex`) statt aller verfügbaren Spalten, um die Grundidee der logistischen Regression klar zu halten. Mehr Features (z. B. `Fare`, `SibSp`, `Parch`) können die Genauigkeit erhöhen, auf Kosten von mehr Komplexität.
@@ -11,6 +14,12 @@ Bei Größe/Alter → Gewicht (2 Features, ~200 Zeilen) schneidet ein neuronales
 
 **Wird die DVC-Übung mit einem Remote-Storage (Cloud) durchgeführt?**
 Nein, Lab 2.2 arbeitet rein lokal. Ein Remote-Storage wäre für Teamarbeit sinnvoll, ist aber für ein Einzelsetting an einem Tag nicht nötig.
+
+**Warum gibt es sowohl DVC als auch MLflow – reicht nicht eins von beiden?**
+Sie lösen unterschiedliche Probleme: DVC versioniert die Eingabedaten (welcher Datenstand), MLflow versioniert, was beim Training daraus entsteht (Parameter, Metriken, Modell je Run) und verwaltet produktive Modellversionen. In der Praxis werden beide meist zusammen eingesetzt (Lab 2.3).
+
+**Warum braucht MLflow eine SQLite-Datei statt einfach nur eines Ordners?**
+Neuere MLflow-Versionen (ab 3.x) unterstützen den klassischen reinen Dateiordner nicht mehr als Tracking-Backend, sobald die Model Registry genutzt wird – eine lokale SQLite-Datenbank ist der heute empfohlene, einfachste Ersatz dafür (Lab 2.3).
 
 **Warum wird Feast nur als Demo gezeigt und nicht selbst installiert?**
 Aus Zeitgründen: Eine eigene Feast-Installation inklusive Online-Store würde mehr Zeit beanspruchen, als das Zeitbudget von Modul 3 zulässt. Die Konzepte (Entity, Feature View) werden trotzdem vollständig erklärt.

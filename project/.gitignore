@@ -6,3 +6,6 @@ __pycache__/
 *.pkl
 drift_report.html
 checkpoints/m03-feature-store/feature_repo/data/
+
+
+people_dataset.csv
